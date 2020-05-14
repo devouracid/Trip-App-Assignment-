@@ -19,7 +19,91 @@
   </form>
 
   {{/tripListing}}
+<html>
+<head><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+#myInput {
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>
+<link rel="stylesheet"  href="/css/styles.css">
+    
+</head>
+<header> 
+    <a href="http://localhost:3000/trips">View Trips</a>
+    <a href="http://localhost:3000/add-trips">Add Trip</a> 
+    </header>
+<body>
 
+<h1>Git your Tracked Trips</h1>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by Trips..">
+    <ul id="myUL">
+         {{#listOfTrips}} <!-- Start of the loop --> 
+            <form id="tripsForm" action="/delete-trip" method="POST">
+
+               <li><a href="#"> <div>
+                    <li><a href="#"><img src={{image}}></a></li>
+                    <li><a href="#"><b>Location: </b> {{tripLocation}}</a></li>
+                    <li><a href="#"><b>Departure Date: </b> {{dateOfDep}}</a></li>
+                    <li><a href="#"><b>Return Date: </b>{{dateOfRet}}</a></li>
+                    <button>Delete Trip</button>
+                    <input type="hidden" name="tripName" value="{{tripLocation}}">
+                </div>  </a></li>
+            </form>
+         <!-- You have access to all the properties of the object contained in the listOfTripsarray -->
+
+             
+
+         {{/listOfTrips}} <!-- End of the loop -->
+    </ul>
+  <script>
+function myFunction() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
+</body>
+
+</html>
 </body>
 
 </html>

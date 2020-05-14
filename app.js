@@ -111,6 +111,7 @@ app.get('/admin/trips',(req,res)=>{
 
 app.post('/deleteTrip',(req,res)=>{
     let tripId = req.body.tripId
+    return trip.tripListing != tripId
 
     trips = trips.filter,(trip)=>{
         return trip.tripId != tripId
